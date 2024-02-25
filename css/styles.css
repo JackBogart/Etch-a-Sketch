@@ -1,5 +1,5 @@
 body {
-    background-color: hsl(0, 0%, 15%);
+    background-color: hsl(0, 0%, 7%);
 }
 
 #container {
@@ -17,6 +17,7 @@ body {
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
+    background-color: rgb(23, 23, 23);
 }
 
 .tile {

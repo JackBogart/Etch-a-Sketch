@@ -1,5 +1,6 @@
 const grid = document.querySelector('#grid');
 let rainbowMode = false;
+let darkenMode = false;
 
 function createGrid(size = 16) {
     for (let i = 0; i < size ** 2; i++) {
@@ -27,7 +28,7 @@ function deleteGrid() {
 function changeSize() {
     let newGridSize;
     do {
-        newGridSize = prompt('Select new grid size (max 100x100): ');
+        newGridSize = prompt('Select new grid size (max 100): ');
     } while (newGridSize > 100 || newGridSize < 1);
     deleteGrid();
     createGrid(newGridSize);
@@ -40,21 +41,23 @@ function resetGrid() {
         tile.style.backgroundColor = '';
     });
     rainbowMode = false;
+    darkenMode = false;
 }
 
 function selectColor(alpha) {
-    if (isNaN(alpha)) {
+    if (isNaN(alpha) || !darkenMode) {
         // Check if alpha is NaN
         alpha = 1;
+    } else {
+        alpha = Math.min(alpha + 0.1, 1);
     }
 
     if (rainbowMode) {
-        console.log(alpha);
         return `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(
             Math.random() * 256
-        )}, ${Math.min(alpha + 0.1, 1)})`;
+        )}, ${alpha})`;
     } else {
-        return `rgba(255, 255, 255, ${Math.min(alpha + 0.1, 1)})`;
+        return `rgba(255, 255, 255, ${alpha})`;
     }
 }
 
@@ -66,6 +69,10 @@ function initialization() {
     const rainbow_btn = document.querySelector('#rainbow_btn');
     rainbow_btn.addEventListener('click', () => {
         rainbowMode = !rainbowMode;
+    });
+    const darken_btn = document.querySelector('#darken_btn');
+    darken_btn.addEventListener('click', () => {
+        darkenMode = !darkenMode;
     });
     createGrid();
 }
