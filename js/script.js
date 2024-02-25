@@ -8,7 +8,9 @@ function createGrid(size = 16) {
         tile.style.width = `${100 / size}%`;
         tile.style.height = `${100 / size}%`;
         tile.addEventListener('mouseenter', (event) => {
-            event.target.style.backgroundColor = selectColor();
+            event.target.style.backgroundColor = selectColor(
+                parseFloat(window.getComputedStyle(event.target).backgroundColor.split(',')[3])
+            );
         });
         grid.appendChild(tile);
     }
@@ -40,13 +42,19 @@ function resetGrid() {
     rainbowMode = false;
 }
 
-function selectColor() {
+function selectColor(alpha) {
+    if (isNaN(alpha)) {
+        // Check if alpha is NaN
+        alpha = 1;
+    }
+
     if (rainbowMode) {
-        return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(
+        console.log(alpha);
+        return `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(
             Math.random() * 256
-        )})`;
+        )}, ${Math.min(alpha + 0.1, 1)})`;
     } else {
-        return 'white';
+        return `rgba(255, 255, 255, ${Math.min(alpha + 0.1, 1)})`;
     }
 }
 
@@ -57,7 +65,7 @@ function initialization() {
     reset_btn.addEventListener('click', resetGrid);
     const rainbow_btn = document.querySelector('#rainbow_btn');
     rainbow_btn.addEventListener('click', () => {
-        rainbowMode = true;
+        rainbowMode = !rainbowMode;
     });
     createGrid();
 }

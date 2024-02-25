@@ -20,5 +20,5 @@ body {
 }
 
 .tile {
-    background-color: hsl(0, 0%, 20%);
+    background-color: rgba(51, 51, 51, 0);
 }
