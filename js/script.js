@@ -8,11 +8,13 @@ function createGrid(size = 16) {
         tile.classList.add('tile');
         tile.style.width = `${100 / size}%`;
         tile.style.height = `${100 / size}%`;
-        tile.addEventListener('mouseenter', (event) => {
-            event.target.style.backgroundColor = selectColor(
-                parseFloat(window.getComputedStyle(event.target).backgroundColor.split(',')[3])
-            );
-        });
+        tile.addEventListener(
+            'mouseenter',
+            (event) =>
+                (event.target.style.backgroundColor = selectColor(
+                    parseFloat(window.getComputedStyle(event.target).backgroundColor.split(',')[3])
+                ))
+        );
         grid.appendChild(tile);
     }
 }
@@ -20,9 +22,7 @@ function createGrid(size = 16) {
 function deleteGrid() {
     const tileList = document.querySelectorAll('.tile');
 
-    tileList.forEach((tile) => {
-        tile.remove();
-    });
+    tileList.forEach((tile) => tile.remove());
 }
 
 function changeSize() {
@@ -37,9 +37,7 @@ function changeSize() {
 function resetGrid() {
     const tileList = document.querySelectorAll('.tile');
 
-    tileList.forEach((tile) => {
-        tile.style.backgroundColor = '';
-    });
+    tileList.forEach((tile) => (tile.style.backgroundColor = ''));
     rainbowMode = false;
     darkenMode = false;
 }
@@ -67,13 +65,9 @@ function initialization() {
     const reset_btn = document.querySelector('#reset_btn');
     reset_btn.addEventListener('click', resetGrid);
     const rainbow_btn = document.querySelector('#rainbow_btn');
-    rainbow_btn.addEventListener('click', () => {
-        rainbowMode = !rainbowMode;
-    });
+    rainbow_btn.addEventListener('click', () => (rainbowMode = !rainbowMode));
     const darken_btn = document.querySelector('#darken_btn');
-    darken_btn.addEventListener('click', () => {
-        darkenMode = !darkenMode;
-    });
+    darken_btn.addEventListener('click', () => (darkenMode = !darkenMode));
     createGrid();
 }
 
